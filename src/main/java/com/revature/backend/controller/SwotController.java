@@ -28,13 +28,14 @@ import org.springframework.web.bind.annotation.RestController;
 @RestController("swotController")
 @RequestMapping("/swot")
 public class SwotController {
+	
+	private SwotService swotService;
 
-	private final SwotService swotService;
-
-  public SwotController(SwotService swotService) {
-    this.swotService = swotService;
-  }
-	/*
+	/**
+	 * 
+	 * @param swot
+	 * @return a 201 HTTP status with a message indicating whether or not creation was successful
+	 * 
 	 * POST request to create a new SWOT for an Associate with AnalysisItems within
 	 * it as a collection.
 	 *
@@ -43,22 +44,23 @@ public class SwotController {
 	 *
 	 * Returns a 201 status with a message for the client within the HTTP body as a
 	 * JSON object if successful.
-	 *
-	 * *COMPLETED*
 	 */
 	@PostMapping(path = "/create", consumes = { MediaType.APPLICATION_JSON_VALUE })
 	public ResponseEntity<ClientMessage> createSwot(@RequestBody Swot swot) {
 		ClientMessage body = swotService.createNewSwot(swot) ? SUCCESSFULLY_CREATED : CREATION_FAILED;
+		System.out.println(swot);
 		return ResponseEntity.status(HttpStatus.CREATED).body(body);
 	}
 
-	/*
+	/**
+	 * 
+	 * @param associateId
+	 * @return a list of all SWOTs for the corresponding associate
+	 * 
 	 * GET request for fetching all SWOTs based on an Associate's id as found in the
 	 * RESTful URL.
 	 *
 	 * Returns the List of SWOTs as a JSON array with a 200 code if successful.
-	 *
-	 * *COMPLETED*
 	 */
 	@GetMapping(path = "/view/{associateId}", produces = { MediaType.APPLICATION_JSON_VALUE })
 	public ResponseEntity<List<Swot>> viewSwot(@PathVariable("associateId") int associateId) {
@@ -66,35 +68,46 @@ public class SwotController {
 		return ResponseEntity.ok(swotList);
 	}
 
-	/*
+	/**
+	 * 
+	 * @return List of all SWOTs in the database with a 200 HTTP status.
+	 * 
 	 * GET request for fetching all existing SWOTs in the system. Returns the List
 	 * as a JSON array.
 	 *
 	 * This will more than likely be removed in the future and was only used for
 	 * proof of concept.
-	 *
-	 * *COMPLETED BUT FIT FOR REMOVAL*
 	 */
 	@GetMapping(path = "/view/all", produces = { MediaType.APPLICATION_JSON_VALUE })
 	public ResponseEntity<List<Swot>> viewAllSwot() {
 		List<Swot> swotList = swotService.retrieveAllSwot();
 		return ResponseEntity.ok(swotList);
 	}
-
+	
+	/**
+	 * 
+	 * @param swotId
+	 * @return ResponseEntity with a 200 HTTP status indicating whether or not deletion was successful
+	 * 
+	 * DELETE request for deleting a SWOT. Returns ResponseEntity with a message indicating whether
+	 * or not deletion was successful.
+	 */
 	@DeleteMapping(path = "/delete/{swotId}")
 	public ResponseEntity<ClientMessage> deleteSwot(@PathVariable("swotId") int swotId) {
 		ClientMessage body = swotService.deleteSwot(swotId) ? SUCCESSFULLY_DELETED : DELETION_FAILED;
 		return ResponseEntity.ok(body);
 	}
 
-	/*
+	/**
+	 * 
+	 * @param analysisItem
+	 * @return ResponseEntity with 201 HTTP status indicating whether or not creation was successful
+	 * 
 	 * POST request to create a new AnalysisItem for a particular SWOT.
 	 *
 	 * Takes in an AnalysisItem from a JSON object.
 	 *
 	 * Returns a 201 HTTP status with an informative client message in the body.
-	 *
-	 * *COMPLETED*
 	 */
 	@PostMapping(path = "/item/new", consumes = { MediaType.APPLICATION_JSON_VALUE })
 	public ResponseEntity<ClientMessage> createItem(@RequestBody AnalysisItem analysisItem) {
@@ -102,7 +115,11 @@ public class SwotController {
 		return ResponseEntity.status(HttpStatus.CREATED).body(body);
 	}
 
-	/*
+	/**
+	 * 
+	 * @param analysisItem
+	 * @return ResponseEntity<AnalysisItem> containing the updated analysis item or a 204 status code in event of failure
+	 * 
 	 * PUT request to update an AnalysisItem.
 	 *
 	 * Takes in an AnalysisItem *with* altered fields from a JSON object.
@@ -110,8 +127,6 @@ public class SwotController {
 	 * If the update failed, returns a 204 status code.
 	 *
 	 * If successful, returns a 200 status code and the updated object.
-	 *
-	 * *COMPLETED*
 	 */
 	@PutMapping(path = "/item/update/{analysisItemId}", consumes = { MediaType.APPLICATION_JSON_VALUE })
 	public ResponseEntity<AnalysisItem> updateItem(@RequestBody AnalysisItem analysisItem) {
@@ -123,14 +138,16 @@ public class SwotController {
 		}
 	}
 
-	/*
+	/**
+	 * 
+	 * @param analysisItemId
+	 * @return ResponseEntity<ClientMessage> indicating whether the delete was successful
+	 * 
 	 * DELETE request to delete an AnalysisItem from a particular SWOT.
 	 *
 	 * Takes in the id of the AnalysisItem as a variable from the URL.
 	 *
 	 * Returns an informative client message and a 200 status code.
-	 *
-	 * *COMPLETED*
 	 */
 	@DeleteMapping(path = "/item/delete/{analysisItemId}")
 	public ResponseEntity<ClientMessage> deleteSwotItem(@PathVariable("analysisItemId") int analysisItemId) {

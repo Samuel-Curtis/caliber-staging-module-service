@@ -47,6 +47,7 @@ public class TestSwotService {
 	AnalysisItem mockAI2;
 	AnalysisItem mockAI3;
 	AnalysisItem mockAI4;
+	Swot mockSwot1;
     /*
         SETUP
     */
@@ -56,22 +57,22 @@ public class TestSwotService {
 		swotList = new ArrayList<>();
 		List<AnalysisItem> mockAnalysisItems;
 		mockAnalysisItems = new ArrayList<AnalysisItem>();
-		Swot mockSwot1;
+		mockSwot1 = new Swot(1, 
+				new Associate(1, null, null, null, null, null, null, null), 
+				new Manager(1, null, null, null), 
+				new Timestamp(System.currentTimeMillis()), 
+				new Timestamp(System.currentTimeMillis()),
+				"description");
     	
-    	mockAI1 = new AnalysisItem(1, "Strength", null, AnalysisType.STRENGTH, "Strength comment");
-		mockAI2 = new AnalysisItem(2, "Weakness", null, AnalysisType.WEAKNESS, "Weakness comment");
-		mockAI3 = new AnalysisItem(3, "Opportunity", null, AnalysisType.OPPORTUNITY, "Opportunity comment");
-		mockAI4 = new AnalysisItem(4, "Threat", null, AnalysisType.THREAT, "Threat comment");
+    	mockAI1 = new AnalysisItem(1, "Strength", mockSwot1, AnalysisType.STRENGTH, "Strength comment");
+		mockAI2 = new AnalysisItem(2, "Weakness", mockSwot1, AnalysisType.WEAKNESS, "Weakness comment");
+		mockAI3 = new AnalysisItem(3, "Opportunity", mockSwot1, AnalysisType.OPPORTUNITY, "Opportunity comment");
+		mockAI4 = new AnalysisItem(4, "Threat", mockSwot1, AnalysisType.THREAT, "Threat comment");
 		mockAnalysisItems.add(mockAI1);
 		mockAnalysisItems.add(mockAI2);
 		mockAnalysisItems.add(mockAI3);
 		mockAnalysisItems.add(mockAI4);
-		mockSwot1 = new Swot(1, 
-					new Associate(1, null, null, null, null, null, null, null), 
-					new Manager(1, null, null, null), 
-					new Timestamp(System.currentTimeMillis()), 
-					new Timestamp(System.currentTimeMillis()),
-					"description");
+		
 		mockSwot1.setAnalysisItems(mockAnalysisItems);
 		
     	swotList.add(mockSwot1);
@@ -79,6 +80,7 @@ public class TestSwotService {
     	when(sRepo.findAllByAssociateId(1)).thenReturn(swotList);
     	when(sRepo.findAllByAssociateId(2)).thenReturn(null);
     	when(sRepo.findAll()).thenReturn(swotList);
+    	when(sRepo.findById(mockAI1.getSwot().getId())).thenReturn(mockSwot1);
     	
     	aItem = new AnalysisItem();
     	swot = new Swot();
@@ -91,7 +93,10 @@ public class TestSwotService {
     	when(sRepo.findById(null)).thenReturn(oSwot);
 		when(sRepo.save(any(Swot.class))).thenReturn(swot);
 		when(sServ.retrieveAllSwotByAssociateId(1)).thenReturn(swotList);
+		when(sServ.updateItem(mockAI1)).thenReturn(mockAI1);
 		doNothing().when(aiRepo).deleteById(1); 
+		doNothing().when(sRepo).delete(mockSwot1);
+		
     }
     
     /*
@@ -153,7 +158,7 @@ public class TestSwotService {
 	 */
 	@Test 
 	public void testUpdateItemSuccess() { 
-		assertEquals(sServ.updateItem(aItem), aItem); 
+		assertEquals(sServ.updateItem(mockAI1), mockAI1); 
 	}
 
 	/**
@@ -172,6 +177,11 @@ public class TestSwotService {
 		assertEquals(sServ.retrieveAllSwotByAssociateId(1).get(0).getAnalysisItems().get(1).getNote(), mockAI2.getNote());
 		assertEquals(sServ.retrieveAllSwotByAssociateId(1).get(0).getAnalysisItems().get(2).getNote(), mockAI3.getNote());
 		assertEquals(sServ.retrieveAllSwotByAssociateId(1).get(0).getAnalysisItems().get(3).getNote(), mockAI4.getNote());
+	}
+	@Test
+	public void testDeleteSwot() {
+		sServ.deleteSwot(1);
+		verify(sRepo).delete(mockSwot1);
 	}
 	
 	 

@@ -149,8 +149,8 @@ public class InterviewFeedbackControllerTest {
 	public void postFeedbackTest() throws Exception {
 		this.mockMvc.perform(post("/feedback").contentType(MediaType.APPLICATION_JSON).content(
 			"{ "
-			+ " \"associate_id\": 1,"
-			+ " \"manager_id\": 1,"
+			+ " \"associateId\": 1,"
+			+ " \"managerId\": 1,"
 			+ " \"content\": \"Test context\""
 			+ " }"
 		)).andExpect(status().isOk());
@@ -167,8 +167,8 @@ public class InterviewFeedbackControllerTest {
 		InterviewFeedback feedback1 = new InterviewFeedback(1, associate1, manager, "test content", date);
 		this.mockMvc.perform(put("/feedback/{id}", feedback1.getId()).contentType(MediaType.APPLICATION_JSON).content(
 			"{ "
-			+ " \"associate_id\": 1,"
-			+ " \"manager_id\": 1,"
+			+ " \"associateId\": 1,"
+			+ " \"managerId\": 1,"
 			+ " \"content\": \"Test next context\""
 			+ " }"
 		)).andExpect(status().isOk());

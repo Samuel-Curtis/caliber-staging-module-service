@@ -34,6 +34,11 @@ public class AssociateController {
     this.batchService = batchService;
   }
 
+	/**
+	 * Gets associates for a given manager
+	 * @param manager - id of manager
+	 * @return - list of associates for that manager
+	 */
 	@GetMapping("/associates")
 	public ResponseEntity<List<AssociateDTO>> getAssociates(@RequestParam int manager) {
 		List<AssociateDTO> body = null;

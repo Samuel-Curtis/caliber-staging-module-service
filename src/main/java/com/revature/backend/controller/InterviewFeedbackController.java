@@ -41,8 +41,8 @@ public class InterviewFeedbackController {
 
 	/**
 	 * Return all feedback in the database
-	 *
-	 * @return
+	 * @param all The list of feedback should be returned 
+	 * @return Returns the all possible list of feedback if found, and null if not found
 	 */
 	@GetMapping("/all")
 	public ResponseEntity<List<InterviewFeedback>> getAllFeedback() {
@@ -110,7 +110,8 @@ public class InterviewFeedbackController {
 	 * @param feedbackMap Map of the information to input into the feedback
 	 * @return Success or failure statement
 	 */
-	@PostMapping
+
+  @PostMapping("")
 	public ResponseEntity<String> postFeedback(@RequestBody LinkedHashMap feedbackMap) {
 		Associate associate = assocServ.getAssociateById((Integer)feedbackMap.get("associateId"));
 		if(associate == null) {

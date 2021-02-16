@@ -4,7 +4,6 @@ import java.util.List;
 
 import org.openqa.selenium.WebDriver;
 import org.openqa.selenium.WebElement;
-import org.openqa.selenium.support.FindAll;
 import org.openqa.selenium.support.FindBy;
 import org.openqa.selenium.support.PageFactory;
 import org.openqa.selenium.support.ui.Select;
@@ -16,8 +15,8 @@ public class HomePage {
 	@FindBy(xpath = "//*[@class='btn btn-primary logout-btn']")
 	private WebElement logoutButton;
 	
-	@FindBy(xpath = "//button[text()='Create SWOT']")
-	private List<WebElement> createSwotButtons;
+	@FindBy(xpath = "//*[@id=\"data-row\"]/td[9]/button")
+	private WebElement createSwotButton;
 	
 	@FindBy(id = "type")
 	private WebElement SwotTypeDropdown;
@@ -62,12 +61,12 @@ public class HomePage {
 		PageFactory.initElements(driver, this);
 	}
 
-	public void clickCreateSwotForAssociate(int rowId) {
-		WebElement createButton = this.createSwotButtons.get(rowId);
-		createButton.click();
+	public void clickCreateSwotForAssociate() {
+		createSwotButton.click();
 	}
 	
 	public void clickViewSwotForAssociate(int rowId) {
+
 		WebElement viewButton = this.viewSwots.get(rowId);
 		viewButton.click();
 	}
@@ -113,8 +112,8 @@ public class HomePage {
 		return logoutButton;
 	}
 
-	public List<WebElement> getCreateSwotButtons() {
-		return createSwotButtons;
+	public WebElement getCreateSwotButton() {
+		return createSwotButton;
 	}
 
 	public WebElement getSwotTypeDropdown() {

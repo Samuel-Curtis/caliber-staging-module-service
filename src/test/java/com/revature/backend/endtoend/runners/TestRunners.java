@@ -9,10 +9,11 @@ import io.cucumber.junit.CucumberOptions;
 @CucumberOptions(
 
 		//features = {"features/Toast.feature", "features/ToastLocation.feature"},
-		features = {"features/Toast.feature"},
+//		features = {"features/Toast.feature"},
 //		features = {"features/ToastLocation.feature"},
 //		features = {"features/ToastText.feature"},
 //		features = {"features/CreateSWOTWithName.feature"},
+		features = {"features"},
 		glue = {"com.revature.backend.endtoend.gluecode"}
 		)
 public class TestRunners {

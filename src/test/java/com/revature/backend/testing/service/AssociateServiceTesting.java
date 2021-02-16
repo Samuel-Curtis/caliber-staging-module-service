@@ -1,9 +1,15 @@
 package com.revature.backend.testing.service;
 
+import static org.junit.jupiter.api.Assertions.assertEquals;
+import static org.junit.jupiter.api.Assertions.fail;
 import static org.mockito.Mockito.doNothing;
 import static org.mockito.Mockito.mock;
 import static org.mockito.Mockito.times;
 import static org.mockito.Mockito.verify;
+import static org.mockito.Mockito.when;
+
+import java.util.ArrayList;
+import java.util.List;
 
 import org.junit.jupiter.api.BeforeEach;
 import org.junit.jupiter.api.Test;
@@ -44,6 +50,7 @@ public class AssociateServiceTesting {
 	Manager manager;
 	Batch batch1;
 	Batch batch2;
+	List<Associate> assocList = new ArrayList<Associate>();
 	/**
 	 *  The Setup method will setup all necessary pieces for the tests. The @BeforeEach will make the setup method run before each test.
 	 * @throws Exception
@@ -55,6 +62,9 @@ public class AssociateServiceTesting {
 		manager = new Manager(2,"test@revature.com","REAL_TEST_EMAIL","usery");
 		associate = new Associate(1, "testemail@email.com", "test", "associate","1A", manager, batch1, AssociateStatus.STAGING);
 		doNothing().when(associateServ).updateAssociate(associate);
+		when(associateServ.getAssociateById(1)).thenReturn(associate);
+		when(associateServ.getAssociateById(-88)).thenReturn(null);
+		when(associateServ.getAllAssociates()).thenReturn(assocList);
 	}
 	/**
 	 *  This test method will test to see if the associate gets updated properly. The @Test annotation will be placed above each and every test
@@ -64,4 +74,20 @@ public class AssociateServiceTesting {
 		associateServ.updateAssociate(associate);
 		verify(associateServ, times(1)).updateAssociate(associate);
 	}
+	@Test
+	public void testInsertAssociateSuccess() {
+	
+		assocList.add(associate);
+		assertEquals(associateServ.getAllAssociates(), assocList);
+	}
+	@Test
+	public void getAssociateByIdSuccess() {
+	
+		assertEquals(associateServ.getAssociateById(1), associate);
+	}
+	@Test
+	public void getAssociateByIdFail() {
+		assertEquals(associateServ.getAssociateById(-88), null);
+	}
+	
 }

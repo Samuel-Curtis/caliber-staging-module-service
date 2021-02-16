@@ -50,7 +50,7 @@ public class ToastTest {
 		this.homePage = new HomePage(DriverUtility.driver);
 		assertEquals(DriverUtility.driver.getCurrentUrl(), "http://localhost:4200/home");
 		
-		this.homePage.clickCreateSwotForAssociate(1);
+		this.homePage.clickCreateSwotForAssociate();
 	}
 
 	@When("user inputs swot title {string}")

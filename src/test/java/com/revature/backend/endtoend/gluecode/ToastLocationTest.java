@@ -36,9 +36,9 @@ public class ToastLocationTest {
 	@When("a user clicks Create SWOT for associate in table row {string}")
 	public void a_user_clicks_create_swot_for_associate_in_table_row(String string) {
 		int associateId = Integer.parseInt(string);
-		WebElement createSwot = this.homePage.getCreateSwotButtons().get(associateId - 1);
+		WebElement createSwot = this.homePage.getCreateSwotButton();
 		wait.until(ExpectedConditions.elementToBeClickable(createSwot));
-		this.homePage.clickCreateSwotForAssociate(associateId - 1);
+		this.homePage.clickCreateSwotForAssociate();
 	}
 	@When("selects their SWOT type {string}")
 	public void selects_their_swot_type_strength(String string) {
@@ -73,7 +73,6 @@ public class ToastLocationTest {
 				By.xpath("//button[contains(.,'Delete')]")));
 		this.viewPage.clickDeleteItem(0);
 	}
-
 	@Given("a user is logged in and viewing a SWOT page for associate id {string}")
 	public void a_user_is_logged_in_and_viewing_a_swot_page_for_associate_id(String string) {
 	    // Write code here that turns the phrase above into concrete actions
@@ -104,9 +103,37 @@ public class ToastLocationTest {
 	    // Write code here that turns the phrase above into concrete actions
 	    throw new io.cucumber.java.PendingException();
 	}
-
-
 	@Then("a toast notification should appear in the lower left")
 	public void a_toast_notification_should_appear_in_the_lower_left() {
+	}
+	@When("a user clicks Create SWOT for associate {string}")
+	public void a_user_clicks_create_swot_for_associate(String string) {
+	    // Write code here that turns the phrase above into concrete actions
+	    throw new io.cucumber.java.PendingException();
+	}
+	@When("clicks Select SWOT type")
+	public void clicks_select_swot_type() {
+	    // Write code here that turns the phrase above into concrete actions
+	    throw new io.cucumber.java.PendingException();
+	}
+	@When("selects their {string}")
+	public void selects_their(String string) {
+	    // Write code here that turns the phrase above into concrete actions
+	    throw new io.cucumber.java.PendingException();
+	}
+	@Then("a toast notification should appear")
+	public void a_toast_notification_should_appear() {
+	    // Write code here that turns the phrase above into concrete actions
+	    throw new io.cucumber.java.PendingException();
+	}
+	@Then("the toast header should say {string} with id: {string}")
+	public void the_toast_header_should_say_with_id(String string, String string2) {
+	    // Write code here that turns the phrase above into concrete actions
+	    throw new io.cucumber.java.PendingException();
+	}
+	@Then("the toast text should say {string} for {string}")
+	public void the_toast_text_should_say_for(String string, String string2) {
+	    // Write code here that turns the phrase above into concrete actions
+	    throw new io.cucumber.java.PendingException();
 	}
 }

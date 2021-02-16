@@ -95,10 +95,23 @@ public class ManagerTesting {
 		when(mockBackendRepo.findAssociatesByManagerId(2)).thenReturn(m2Assocs);
 		when(mockBackendRepo.findAssociatesByManagerId(3)).thenReturn(m3Assocs);
 
-		Map<Manager, Integer> actualMap = managerService.getAllManagersAndAssociates();
+    Map<Manager, Integer> actualMap = managerService.getAllManagersAndAssociates();
 		assertEquals(expectedMap, actualMap);
 	}
-
+	/**
+	 * This will test that we can get a manager by the manager id
+	 */
+	@Test
+	public void getManagerById() {
+		assertEquals(managerService.getManagerById(1), manager);
+	}
+	/**
+	 * For future batches implement a test for
+	*/
+	@Test
+	public void saveAllManagersSuccess() {
+		
+	}
 	/**
 	 * Helper method that builds a list of dummy associates, assigned to the given manager
 	 */

@@ -22,6 +22,7 @@ public class CreateSWOTWithNameTest {
 	public void manager_is_at_the_login_page() throws InterruptedException {
 //		TimeUnit.SECONDS.sleep(1);
 	    this.loginPage = new LoginPage(DriverUtility.driver);
+	    this.homePage = new HomePage(DriverUtility.driver);
 	    assertEquals(DriverUtility.driver.getCurrentUrl(), "http://localhost:4200/login");
 	    
 	}
@@ -56,13 +57,13 @@ public class CreateSWOTWithNameTest {
 
 	@When("manager clicks Create Swot")
 	public void manager_clicks_create_swot() throws InterruptedException {
-		TimeUnit.SECONDS.sleep(1);
-	    homePage.clickCreateSwotForAssociate(0);
+		TimeUnit.SECONDS.sleep(3);
+	    homePage.clickCreateSwotForAssociate();
 	}
 
 	@When("manager inputs content {string}")
 	public void manager_inputs_content(String string) throws Exception {
-		TimeUnit.SECONDS.sleep(1);
+		TimeUnit.SECONDS.sleep(3);
 	    homePage.enterContentField(string);
 	}
 
@@ -89,7 +90,7 @@ public class CreateSWOTWithNameTest {
 	@When("manager clicks ok in window alert")
 	public void manager_clicks_ok_in_window_alert() throws InterruptedException {
 		TimeUnit.SECONDS.sleep(1);
-	    DriverUtility.driver.switchTo().alert().accept();
+	   // DriverUtility.driver.switchTo().alert().accept();
 	}
 
 	@When("manager clicks View Swots")
