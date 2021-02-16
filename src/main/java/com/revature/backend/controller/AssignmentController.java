@@ -31,6 +31,16 @@ public class AssignmentController {
 	private BatchWriter batchWriter;
 	
 	private BatchRetriever batchRetriever;
+	
+	public AssignmentController(ManagerBalancer balancer, 
+								ManagerService managerService, 
+								BatchWriter batchWriter, 
+								BatchRetriever batchRetriever) {
+		this.balancer = balancer;
+		this.batchRetriever = batchRetriever;
+		this.batchWriter = batchWriter;
+		this.batchRetriever = batchRetriever;
+	}
 
 	/**
 	 * This method runs after the {@link StagingListener} detects new batches.
